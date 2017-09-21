@@ -12,11 +12,11 @@ var leftBarBegin = 0;
 var rightBarBegin = 100;
 
 function CenterProgressBar(selector, color, inc) {
-    leftBarBegin = 0;
-    rightBarBegin = 100;
     this.increment = inc;
     this.selector = selector;
     $(this.selector).empty();
+    leftBarBegin = 0;
+    rightBarBegin = 100;
     this.progressWrapper = $("<div id='progress-wrapper'></div>");
     this.leftWrapper = $("<div id='left-wrapper'></div>");
     this.rightWrapper = $("<div id='right-wrapper'></div>");

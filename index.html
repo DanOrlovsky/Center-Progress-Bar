@@ -62,7 +62,7 @@
         </code></pre>
     </div>
     <p>
-        Finally, when you need to use it, figure out when the increments will be (100% is complete. So, for example, a 30 second
+        Finally, when you need to use it, figure out what the increments will be (100% is complete. So, for example, a 30 second
         timer's increments will be 100 / 30), then create the new object passing the identifier, color, and what the increments
         will be.
     </p>
@@ -98,18 +98,21 @@ function doSomething() {
                 'magenta',
                 'black',
             ]
-            var centerPrgBar = new CenterProgressBar("#progress-bar-wrapper", colors[colorsIdx], 10);
-            var interval = setInterval(doSomething, 1000);
+            var centerPrgBar = new CenterProgressBar("#progress-bar-wrapper", colors[colorsIdx], 1);
+            var interval = setInterval(doSomething, 100);
             function doSomething() {
+                
                 centerPrgBar.advanceProgressBar(function () {
                     if (++colorsIdx >= colors.length) {
                         colorsIdx = 0;
                     }
+                    
                     setTimeout(function () {
-                            centerPrgBar = new CenterProgressBar("#progress-bar-wrapper", colors[
-                                colorsIdx], 10)
-                        },
-                        1000);
+                        centerPrgBar = new CenterProgressBar("#progress-bar-wrapper", colors[
+                                colorsIdx], 1)
+                    
+                    }, 10);
+
                 });
             }
 

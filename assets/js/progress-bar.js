@@ -7,16 +7,13 @@
 
 
 
-
-var leftBarBegin = 0;
-var rightBarBegin = 100;
-
 function CenterProgressBar(selector, color, inc) {
+    
     this.increment = inc;
     this.selector = selector;
     $(this.selector).empty();
-    leftBarBegin = 0;
-    rightBarBegin = 100;
+    this.leftBarBegin = 0;
+    this.rightBarBegin = 100;
     this.progressWrapper = $("<div id='progress-wrapper'></div>");
     this.leftWrapper = $("<div id='left-wrapper'></div>");
     this.rightWrapper = $("<div id='right-wrapper'></div>");
@@ -42,37 +39,32 @@ function CenterProgressBar(selector, color, inc) {
     this.rightProgress = $("<div id='right-progress'></div>");
     this.rightProgress.css({
         background: color,
-        width: 0,
         height: "100%",
     });
+    this.rightWrapper.append(this.rightProgress);
     
     this.leftProgress.css({
-        background: $(this.rightWrapper).css("background"),
+        background: $(this.selector).css("background-color"),
         height: "100%",
-        width: "100%",
     });
-    this.leftProgress.css("width", leftBarBegin + "%");
-    this.rightProgress.css("width", rightBarBegin + "%");
+    this.leftProgress.css("width", this.leftBarBegin + "%");
+    this.rightProgress.css("width", this.rightBarBegin + "%");
     this.leftWrapper.append(this.leftProgress);
-    this.rightWrapper.append(this.rightProgress);
     $(this.selector).append(this.progressWrapper);
     
 }
 
 CenterProgressBar.prototype = {
     advanceProgressBar: function(callback) {
-        leftBarBegin += this.increment;
-        rightBarBegin -= this.increment;
-        this.leftProgress.css("width", leftBarBegin + "%");
-        this.rightProgress.css("width", rightBarBegin + "%");
-        if(leftBarBegin >= 100 && rightBarBegin <= 0) {
+        this.leftBarBegin += this.increment;
+        this.rightBarBegin -= this.increment;
+        this.leftProgress.css("width", this.leftBarBegin + "%");
+        this.rightProgress.css("width", this.rightBarBegin + "%");
+        if(this.leftBarBegin >= 100 && this.rightBarBegin <= 0) {
             if(!callback) {
                 return;
             } 
             callback();
         }   
     },
-    reset: function() {
-        alert("RESET!");
-    }
 }

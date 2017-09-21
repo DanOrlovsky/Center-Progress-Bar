@@ -8,22 +8,39 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
         crossorigin="anonymous"></script>
     <script src="assets/js/progress-bar.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
+
 
 </head>
 
 <body>
+    <h1>Centered Progress Bar!</h1>
+    <h3>By Daniel Orlovsky</h3>
     <div id="progress-bar-wrapper">
     </div>
     <script>
         $(document).ready(function() {
-            var centerPrgBar = new CenterProgressBar("#progress-bar-wrapper", "orange", 10);
-            console.log(centerPrgBar);
+            var colorsIdx = 0;
+            var colors = [
+                'orange',
+                'red',
+                'green',
+                'blue',
+                'steelblue',
+                'cyan',
+                'magenta',
+                'black',
+            ]
+            var centerPrgBar = new CenterProgressBar("#progress-bar-wrapper", colors[colorsIdx], 10);
             function doSomething() {
                 centerPrgBar.advanceProgressBar(function() {
-                    clearInterval(interval);
-                    console.log("We made it!");
-                })
+                    if(++colorsIdx >= colors.length) {
+                        colorsIdx = 0;
+                    }
+                    centerPrgBar = new CenterProgressBar("#progress-bar-wrapper", colors[colorsIdx], 10);
+                });
             }
 
             var interval = setInterval(doSomething, 1000);

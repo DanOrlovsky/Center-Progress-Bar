@@ -1,10 +1,25 @@
+body {
+    text-align: center;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: Oswald, 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+h1 { 
+    font-size: 3.4em;
+}
+
+h3 {
+    font-size: 2.8em;
+}
+
+
+/*** PROGRESS BAR CSS ***/
 #progress-bar-wrapper {
+    margin: 0 auto;
     height: 40px;
     width: 500px;
     padding: 15px;
     background-color: #fff;
-    /*background: gray; /* For browsers that do not support gradients */
-    /* For Safari 5.1 to 6.0 */
 }
 
 #progress-wrapper {

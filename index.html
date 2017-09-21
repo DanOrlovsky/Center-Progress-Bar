@@ -105,8 +105,8 @@ function doSomething() {
                 'magenta',
                 'black',
             ]
-            var centerPrgBar = new CenterProgressBar("#progress-bar-wrapper", colors[colorsIdx], 1);
-            var interval = setInterval(doSomething, 100);
+            var centerPrgBar = new CenterProgressBar("#progress-bar-wrapper", colors[colorsIdx], 5);
+            var interval = setInterval(doSomething, 150);
 
             function doSomething() {
 
@@ -117,9 +117,9 @@ function doSomething() {
 
                     setTimeout(function () {
                         centerPrgBar = new CenterProgressBar("#progress-bar-wrapper", colors[
-                            colorsIdx], 1)
+                            colorsIdx], 5)
 
-                    }, 10);
+                    }, 150);
 
                 });
             }

@@ -2,7 +2,7 @@
     Creates a progress bar that ends in the center.
     Daniel Orlovsky
 
-    See readme.md for usage.
+    See index.html for usage.
 */
 
 
@@ -39,12 +39,14 @@ function CenterProgressBar(selector, color, inc) {
     this.rightProgress = $("<div id='right-progress'></div>");
     this.rightProgress.css({
         background: color,
+        "transition": "width 150ms",
         height: "100%",
     });
     this.rightWrapper.append(this.rightProgress);
     
     this.leftProgress.css({
         background: $(this.selector).css("background-color"),
+        "transition": "width 150ms",
         height: "100%",
     });
     this.leftProgress.css("width", this.leftBarBegin + "%");

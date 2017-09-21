@@ -20,6 +20,15 @@
     <h1>Centered Progress Bar!</h1>
     <h3>By Daniel Orlovsky</h3>
     <div id="progress-bar-wrapper"> </div>
+    <p>To adjust, put in a new value and hit the Enter key!</p>
+    <p>
+        <span>Delay: </span><input type="text" value="1000" id="delay-change" />
+    </p>
+    <p>
+        <span>Increment: </span><input type="text" value="3.7" id="inc-change" />
+    </p>
+    <script>
+    </script>
     <p>
         This control makes 100% to be the absolute center of the progress bar.
     </p>
@@ -76,8 +85,7 @@ var centerPrgBar = new CenterProgressBar("#progress-bar-wrapper", "orange", 10);
         </code></pre>
     </div>
     <p>
-        Then, in the function where you perform the cyclical task, call the control's <b><u>advanceProgressBar(callback)</u></b>
-         function.  Note: the callback is only for when the progress-bar has completed, and is not required.
+        Then, in the function where you perform the cyclical task, call the control's <b><u>advanceProgressBar(callback)</u></b>        function. Note: the callback is only for when the progress-bar has completed, and is not required.
     </p>
     <div class="code-container">
         <pre><code class="language-javascript">
@@ -108,26 +116,55 @@ function doSomething() {
                 'magenta',
                 'black',
             ]
-            var centerPrgBar = new CenterProgressBar("#progress-bar-wrapper", colors[colorsIdx], 5);
-            var interval = setInterval(doSomething, 150);
+            var delay = 1000;
+            var increment = (100 / 30);
+            var centerPrgBar = new CenterProgressBar("#progress-bar-wrapper", colors[colorsIdx], increment);
+            
 
+
+            var interval = setInterval(doSomething, delay);
             function doSomething() {
 
                 centerPrgBar.advanceProgressBar(function () {
                     if (++colorsIdx >= colors.length) {
                         colorsIdx = 0;
                     }
-
+                    var timeoutDelay = delay;
+                    if(delay < 500) {
+                        timeoutDelay *= 3;
+                    } 
                     setTimeout(function () {
                         centerPrgBar = new CenterProgressBar("#progress-bar-wrapper", colors[
-                            colorsIdx], 5)
+                            colorsIdx], increment)
 
-                    }, 150);
+                    }, timeoutDelay);
 
                 });
             }
+            $('#delay-change').on('keypress', function (event) {
+                if (event.keyCode === 13) {
+                    var newDelay = parseInt($(this).val());
+                    if(newDelay <= 0) {
+                        return;
+                    }
+                    clearInterval(interval);
+                    delay = newDelay;
+                    interval = setInterval(doSomething, delay);
+                }
+            });
+            $("#inc-change").on('keypress', function(event) {
+                if(event.keyCode === 13) {
+                    var newInc = parseInt($(this).val());
+                    if(newInc <= 0 || newInc > 100) {
+                        return;
+                    }
+                    clearInterval(interval);
+                    increment = newInc;
+                    centerPrgBar = new CenterProgressBar("#progress-bar-wrapper", colors[colorsIdx], increment);
+                    interval = setInterval(doSomething, delay);
+                }
+            })
 
-            var interval = setInterval(doSomething, 1000);
         });
     </script>
     <script src="assets/js/prism.js"></script>

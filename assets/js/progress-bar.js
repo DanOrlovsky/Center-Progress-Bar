@@ -8,10 +8,18 @@
 
 
 function CenterProgressBar(selector, color, inc) {
-    
+    var incMulti = 1;    
     this.increment = inc;
     this.selector = selector;
-    $(this.selector).empty();
+    if(inc <= 5) {
+        incMulti = 100;
+    } else if (inc > 5 && inc <= 10) {
+        incMulti = 50;
+    } else if(inc > 10 && inc <= 20) {
+        incMulti = 10;
+    } 
+    this.transitionSpeed = (inc * incMulti) + "ms";
+     $(this.selector).empty();
     this.leftBarBegin = 0;
     this.rightBarBegin = 100;
     this.progressWrapper = $("<div id='progress-wrapper'></div>");
@@ -39,14 +47,14 @@ function CenterProgressBar(selector, color, inc) {
     this.rightProgress = $("<div id='right-progress'></div>");
     this.rightProgress.css({
         background: color,
-        "transition": "width 150ms",
+        "transition": "width " + this.transitionSpeed,
         height: "100%",
     });
     this.rightWrapper.append(this.rightProgress);
     
     this.leftProgress.css({
         background: $(this.selector).css("background-color"),
-        "transition": "width 150ms",
+        "transition": "width " + this.transitionSpeed,
         height: "100%",
     });
     this.leftProgress.css("width", this.leftBarBegin + "%");
@@ -62,7 +70,7 @@ CenterProgressBar.prototype = {
         this.rightBarBegin -= this.increment;
         this.leftProgress.css("width", this.leftBarBegin + "%");
         this.rightProgress.css("width", this.rightBarBegin + "%");
-        if(this.leftBarBegin >= 100 && this.rightBarBegin <= 0) {
+        if(this.leftBarBegin > 100 && this.rightBarBegin < 0) {
             if(!callback) {
                 return;
             } 

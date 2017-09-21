@@ -2,26 +2,91 @@
 <html lang="en">
 
 <head>
-    <title></title>
+    <title>Center Progress Bar!</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
         crossorigin="anonymous"></script>
-    <script src="assets/js/progress-bar.js"></script>
+    <script src="assets/js/progress-bar.min.js"></script>
+
+
     <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Droid+Serif" rel="stylesheet">
+    <link href="assets/css/prism.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
-
-
 </head>
 
 <body>
     <h1>Centered Progress Bar!</h1>
     <h3>By Daniel Orlovsky</h3>
-    <div id="progress-bar-wrapper">
+    <div id="progress-bar-wrapper"> </div>
+    <p>
+        This control makes 100% to be the absolute center of the progress bar.
+    </p>
+    <p>
+        Easily drop it into your page, and with minimal setup, get it working!
+    </p>
+    <h3>Usage:</h3>
+    <p>First, add the script to your HTML page,
+        <u><b>AFTER</b></u> jQuery is included: </p>
+    <div class="code-container">
+        <pre><code class="language-markup">
+&lt;script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"&gt;&lt;/script&gt;
+&lt;script src="assets/js/progress-bar.min.js"&gt;&lt;/script&gt;                
+        </code></pre>
     </div>
+    <p>
+        Next, create the container for the progress bar wherever you want it on the screen. Give it a unique identifier.
+        <b>progress-bar-wrapper</b> is recommended, but the only protected identifiers are: <b>#left-wrapper</b>, <b>#right-wrapper</b>,
+        <b>#left-progress</b>, and <b>#right-progress</b>.
+    </p>
+    <div class="code-container">
+        <pre><code class="language-markup">
+&lt;div id="progress-bar-wrapper"&gt; &lt;/div&gt;
+            </code></pre>
+    </div>
+    <p>
+        Now let's give our progress bar some basic styling. All that is required is setting the height and background-color, but
+        you can make it a little fancier like the one displayed up above.
+    </p>
+    <div class="code-container">
+        <pre><code class="language-css">
+#progress-bar-wrapper {
+    margin: 0 auto;
+    height: 40px;
+    width: 500px;
+    box-shadow: 0 0 5px black;
+    background-color: #fff;
+}
+        </code></pre>
+    </div>
+    <p>
+        Finally, when you need to use it, figure out when the increments will be (100% is complete. So, for example, a 30 second
+        timer's increments will be 100 / 30), then create the new object passing the identifier, color, and what the increments
+        will be.
+    </p>
+    <p>
+        Then, in the function where you perform the cyclical task, call the control's <b><u>advanceProgressBar(callback)</u></b> function.  
+        Note: the callback is only for when the progress-bar has completed, and is not required.  
+    </p>
+    <div class="code-container">
+        <pre><code class="language-javascript">
+// Initialize progress bar - pass selector, orange, and increment.
+var centerPrgBar = new CenterProgressBar("#progress-bar-wrapper", "orange", 10);
+var interval = setInterval(doSomething, 1000);
+function doSomething() {
+    centerPrgBar.advanceProgressBar(function () {
+        setTimeout(function () {
+            console.log("We're finished!");
+        }, 1000);
+    });
+}
+        </code></pre>
+    </div>
+
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             var colorsIdx = 0;
             var colors = [
                 'orange',
@@ -34,18 +99,24 @@
                 'black',
             ]
             var centerPrgBar = new CenterProgressBar("#progress-bar-wrapper", colors[colorsIdx], 10);
+            var interval = setInterval(doSomething, 1000);
             function doSomething() {
-                centerPrgBar.advanceProgressBar(function() {
-                    if(++colorsIdx >= colors.length) {
+                centerPrgBar.advanceProgressBar(function () {
+                    if (++colorsIdx >= colors.length) {
                         colorsIdx = 0;
                     }
-                    centerPrgBar = new CenterProgressBar("#progress-bar-wrapper", colors[colorsIdx], 10);
+                    setTimeout(function () {
+                            centerPrgBar = new CenterProgressBar("#progress-bar-wrapper", colors[
+                                colorsIdx], 10)
+                        },
+                        1000);
                 });
             }
 
             var interval = setInterval(doSomething, 1000);
         });
     </script>
+    <script src="assets/js/prism.js"></script>
 </body>
 
 </html>

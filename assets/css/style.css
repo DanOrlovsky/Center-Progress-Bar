@@ -1,17 +1,27 @@
 body {
-    text-align: center;
+    padding: 20px 20px;
+    line-height: 1.8em;
+    letter-spacing: 2px;
 }
+
 h1, h2, h3, h4, h5, h6 {
     font-family: Oswald, 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: center;
 }
 h1 { 
     font-size: 3.4em;
 }
 
 h3 {
-    font-size: 2.8em;
+    font-size: 2.2em;
 }
 
+p {
+    margin: 20px auto;
+    text-align: center;
+    font-size: 1.2em;
+    max-width: 750px;   
+}
 
 /*** PROGRESS BAR CSS ***/
 #progress-bar-wrapper {
@@ -24,4 +34,21 @@ h3 {
 
 #progress-wrapper {
     box-shadow: 0 0 5px black;
+}
+
+.code-container {
+    
+    text-align: left;
+    width: 50%;
+    margin: 20px auto;
+}
+code { text-align: inherit;}
+
+@media screen and (max-width: 768px) {
+    .code-container {
+        min-width: 99%;
+    }
+    #progress-bar-wrapper {
+        width: 99%;
+    }
 }

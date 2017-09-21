@@ -1,12 +1,22 @@
-'use strict'
+/*
+    Creates a progress bar that ends in the center.
+    Daniel Orlovsky
+
+    See readme.md for usage.
+*/
+
+
 
 
 var leftBarBegin = 0;
 var rightBarBegin = 100;
 
 function CenterProgressBar(selector, color, inc) {
+    leftBarBegin = 0;
+    rightBarBegin = 100;
     this.increment = inc;
     this.selector = selector;
+    $(this.selector).empty();
     this.progressWrapper = $("<div id='progress-wrapper'></div>");
     this.leftWrapper = $("<div id='left-wrapper'></div>");
     this.rightWrapper = $("<div id='right-wrapper'></div>");
@@ -53,17 +63,16 @@ CenterProgressBar.prototype = {
     advanceProgressBar: function(callback) {
         leftBarBegin += this.increment;
         rightBarBegin -= this.increment;
-        console.log("leftBarBegin: " + leftBarBegin);
-        console.log("rightBarBegin: " + rightBarBegin);
         this.leftProgress.css("width", leftBarBegin + "%");
         this.rightProgress.css("width", rightBarBegin + "%");
         if(leftBarBegin >= 100 && rightBarBegin <= 0) {
-            //clearInterval(progressRef);
+            if(!callback) {
+                return;
+            } 
             callback();
-        }    
+        }   
+    },
+    reset: function() {
+        alert("RESET!");
     }
 }
-/*
-function advanceProgressBar(callback) {
-}
-*/

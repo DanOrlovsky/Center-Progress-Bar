@@ -66,16 +66,23 @@
         timer's increments will be 100 / 30), then create the new object passing the identifier, color, and what the increments
         will be.
     </p>
-    <p>
-        Then, in the function where you perform the cyclical task, call the control's <b><u>advanceProgressBar(callback)</u></b> function.  
-        Note: the callback is only for when the progress-bar has completed, and is not required.  
-    </p>
     <div class="code-container">
         <pre><code class="language-javascript">
 // Initialize progress bar - pass selector, orange, and increment.
 var centerPrgBar = new CenterProgressBar("#progress-bar-wrapper", "orange", 10);
+        </code></pre>
+    </div>
+    <p>
+        Then, in the function where you perform the cyclical task, call the control's <b><u>advanceProgressBar(callback)</u></b>
+         function.  Note: the callback is only for when the progress-bar has completed, and is not required.
+    </p>
+    <div class="code-container">
+        <pre><code class="language-javascript">
+// Calls doSomething every second.
 var interval = setInterval(doSomething, 1000);
+
 function doSomething() {
+    // Advances the progress bar.
     centerPrgBar.advanceProgressBar(function () {
         setTimeout(function () {
             console.log("We're finished!");
@@ -100,17 +107,18 @@ function doSomething() {
             ]
             var centerPrgBar = new CenterProgressBar("#progress-bar-wrapper", colors[colorsIdx], 1);
             var interval = setInterval(doSomething, 100);
+
             function doSomething() {
-                
+
                 centerPrgBar.advanceProgressBar(function () {
                     if (++colorsIdx >= colors.length) {
                         colorsIdx = 0;
                     }
-                    
+
                     setTimeout(function () {
                         centerPrgBar = new CenterProgressBar("#progress-bar-wrapper", colors[
-                                colorsIdx], 1)
-                    
+                            colorsIdx], 1)
+
                     }, 10);
 
                 });

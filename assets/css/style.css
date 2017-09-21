@@ -1,0 +1,12 @@
+#progress-bar-wrapper {
+    height: 40px;
+    width: 500px;
+    padding: 15px;
+    background-color: #fff;
+    /*background: gray; /* For browsers that do not support gradients */
+    /* For Safari 5.1 to 6.0 */
+}
+
+#progress-wrapper {
+    box-shadow: 0 0 5px black;
+}

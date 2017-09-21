@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    <script src="assets/js/progress-bar.js"></script>
+    <link href="assets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div id="progress-bar-wrapper">
+    </div>
+    <script>
+        $(document).ready(function() {
+            var centerPrgBar = new CenterProgressBar("#progress-bar-wrapper", "orange", 10);
+            console.log(centerPrgBar);
+            function doSomething() {
+                centerPrgBar.advanceProgressBar(function() {
+                    clearInterval(interval);
+                    console.log("We made it!");
+                })
+            }
+
+            var interval = setInterval(doSomething, 1000);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,5 +1,5 @@
 # Center Progress Bar
-__________________________  
+#### by: Daniel Orlovsky  
 |XXX|`````100%``````|XXXX|  
 
 
